@@ -5,10 +5,8 @@
 source("environment.R")
 setupwd()
 
-powerconsumption <- mutate(powerconsumption,
-                           datetime = ymd_hms(paste(powerconsumption$Date
-                                                    , powerconsumption$Time)))
-
 png("plot2.png")
-with(powerconsumption, plot(datetime, Global_active_power, type = "l"))
+with(powerconsumption, plot(datetime, Global_active_power, type = "l",
+                            xlab = "",
+                            ylab = "Global Active Power (kilowatts)"))
 dev.off()
