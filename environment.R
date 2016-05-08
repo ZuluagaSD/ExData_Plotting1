@@ -32,7 +32,9 @@ setupwd <- function() {
         powerconsumption <- filter(tmppower, Date == "2007-02-01" |
                                        Date == "2007-02-02")
         
-        rm("tmppower")
+        rm("tmppower") # Remove tmppower as it is no longer needed
+        
+        # Convert the variables we need as numbers
         
         powerconsumption$Global_active_power <- as.numeric(as.character(
             powerconsumption$Global_active_power))
@@ -48,6 +50,12 @@ setupwd <- function() {
             powerconsumption$Sub_metering_2))
         powerconsumption$Sub_metering_3 <- as.numeric(as.character(
             powerconsumption$Sub_metering_3))
+        
+        powerconsumption$Voltage <- as.numeric(as.character(
+            powerconsumption$Voltage))
+        
+        powerconsumption$Global_reactive_power<- as.numeric(as.character(
+            powerconsumption$Global_reactive_power))
         
         powerconsumption <<- powerconsumption
     }
