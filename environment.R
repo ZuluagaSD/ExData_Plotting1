@@ -1,4 +1,6 @@
 
+## Main function to download the file needed and set up the data like we need it
+
 setupwd <- function() {
     
     ## Load all the libraries needed
@@ -27,17 +29,26 @@ setupwd <- function() {
     if (!exists("powerconsumption")) {
         tmppower <- tbl_df(read.csv("household_power_consumption.txt", sep = ";"))
         tmppower$Date <- dmy(tmppower$Date)
-        powerconsumption <<- filter(tmppower, Date == "2007-02-01" |
+        powerconsumption <- filter(tmppower, Date == "2007-02-01" |
                                        Date == "2007-02-02")
         
         rm("tmppower")
         
-        powerconsumption$Global_active_power <<- as.numeric(as.character(
+        powerconsumption$Global_active_power <- as.numeric(as.character(
             powerconsumption$Global_active_power))
         
-        powerconsumption <<- mutate(powerconsumption,
+        powerconsumption <- mutate(powerconsumption,
                                    datetime = ymd_hms(paste(
                                        powerconsumption$Date,
                                        powerconsumption$Time)))
+        
+        powerconsumption$Sub_metering_1 <- as.numeric(as.character(
+            powerconsumption$Sub_metering_1))
+        powerconsumption$Sub_metering_2 <- as.numeric(as.character(
+            powerconsumption$Sub_metering_2))
+        powerconsumption$Sub_metering_3 <- as.numeric(as.character(
+            powerconsumption$Sub_metering_3))
+        
+        powerconsumption <<- powerconsumption
     }
 }
